@@ -1,0 +1,27 @@
+<AnchorLayout>
+    anchor_x: "center"
+    anchor_y: "center"
+    size_hint: 0.3, 0.3
+
+<PlaceButton>
+    source: self.normal_image
+    size_hint: 0, 0
+    pos: self.parent.pos
+    allow_stretch: True
+    keep_ratio: False
+    on_press: self.on_click()
+
+<Main>
+    AnchorLayout:
+        canvas:
+            Color:
+                rgba: app.colors["light_grey"]
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        size_hint: None, None
+        size: root.size
+
+        AnchorLayout:
+            PlaceButton:
+                number: "1"

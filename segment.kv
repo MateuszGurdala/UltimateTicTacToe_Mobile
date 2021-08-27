@@ -1,0 +1,62 @@
+<BoxLayout>
+    orientation: "horizontal"
+    size_hint: 1, 0.3
+    spacing: 5
+
+<AnchorLayout>
+    anchor_x: "center"
+    anchor_y: "center"
+    size_hint: 0.3, 1
+
+<Segment>
+    BoxLayout:
+        orientation: "vertical"
+        size_hint: None, None
+        size: self.parent.size
+        pos: self.parent.pos
+        padding: 3
+
+        # Row I
+        BoxLayout:
+            AnchorLayout:
+                PlaceButton:
+                    id: 1
+                    number: "1"
+            AnchorLayout:
+                PlaceButton:
+                    id: 2
+                    number: "2"
+            AnchorLayout:
+                PlaceButton:
+                    id: 3
+                    number: "3"
+
+        # Row II
+        BoxLayout:
+            AnchorLayout:
+                PlaceButton:
+                    id: 4
+                    number: "4"
+            AnchorLayout:
+                PlaceButton:
+                    id: 5
+                    number: "5"
+            AnchorLayout:
+                PlaceButton:
+                    id: 6
+                    number: "6"
+
+        # Row III
+        BoxLayout:
+            AnchorLayout:
+                PlaceButton:
+                    id: 7
+                    number: "7"
+            AnchorLayout:
+                PlaceButton:
+                    id: 8
+                    number: "8"
+            AnchorLayout:
+                PlaceButton:
+                    id: 9
+                    number: "9"

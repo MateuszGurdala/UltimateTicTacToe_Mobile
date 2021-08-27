@@ -1,0 +1,20 @@
+<AppSettingsWindow>
+    AnchorLayout:
+        canvas:
+            Color:
+                rgba: app.colors["white"]
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        anchor_x: "center"
+        anchor_y: "center"
+        size: self.parent.size
+        pos: self.parent.pos
+
+        Button:
+            text: "Return"
+            size_hint: 0.2, 0.2
+            on_release:
+                print(self.size)
+                app.root.current = "menu_screen"
+                app.root.transition.direction = "left"

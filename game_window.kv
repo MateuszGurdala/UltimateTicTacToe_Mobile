@@ -1,0 +1,105 @@
+<AnchorLayout>
+    anchor_x: "center"
+    anchor_y: "center"
+
+<GameWindow>
+    BoxLayout:
+        orientation: "vertical"
+        size: self.parent.size
+        spacing: 0
+############################################ LAYOUT I #################################################################
+        # UltimateTicTacToe Graphic
+        AnchorLayout:
+            canvas:
+                Color:
+                    rgba: app.colors["yellow"]
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            size_hint: 1, 2/16
+############################################ LAYOUT II ################################################################
+        BoxLayout:
+            canvas:
+                Color:
+                    rgba: app.colors["light_yellow"]
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            size_hint: 1, 13/16
+            orientation: "vertical"
+            spacing: 0
+            padding: 5
+            # Game Map
+            AnchorLayout:
+                canvas:
+                    Color:
+                        rgba: app.colors["dark_grey"]
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                id: game_map_layout
+                size_hint: 1, 10/13
+                GameMap:
+                    id: game_map
+            # Game Log
+            AnchorLayout:
+                canvas:
+                    Color:
+                        rgba: app.colors["light_grey"]
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                id: game_log_layout
+                size_hint: 1, 3/13
+
+############################################ LAYOUT III ###############################################################
+        # Utility Buttons
+        BoxLayout:
+            canvas:
+                Color:
+                    rgba: app.colors["yellow"]
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            orientation: "horizontal"
+            size_hint: 1, 1/16
+            spacing: 4
+            padding: 4
+
+            # Extend Game Log
+            AnchorLayout:
+                SwitchButton:
+                    size_hint: 1, 1
+                    normal: 1, 1
+                    press: 0.95, 0.95
+                    source: "graphics/game_screen/extend_normal.png"
+                    normal_image: "graphics/game_screen/extend_normal.png"
+                    switch_image: "graphics/game_screen/extend_switched.png"
+                    on_release:
+                        self.parent.parent.parent.parent.extend_game_log()
+
+            # Instant Place
+            AnchorLayout:
+                SwitchButton:
+                    size_hint: 1, 1
+                    normal: 1, 1
+                    press: 0.95, 0.95
+                    source: "graphics/game_screen/instant_press_normal.png"
+                    normal_image: "graphics/game_screen/instant_press_normal.png"
+                    switch_image: "graphics/game_screen/instant_press_switched.png"
+
+            # Return to Main Menu
+            AnchorLayout:
+                HoverButton:
+                    size_hint: 1, 1
+                    normal: 1, 1
+                    hover: 1, 1
+                    press: 0.95, 0.95
+                    source: "graphics/game_screen/return_normal.png"
+                    normal_image: "graphics/game_screen/return_normal.png"
+                    hover_image: "graphics/game_screen/return_hover.png"
+                    pressed_image: "graphics/game_screen/return_pressed.png"
+                    on_release:
+                        app.root.current = "menu_screen"
+                        app.root.game_screen.game_window.hide_segments()
+                        app.root.transition.direction = "down"

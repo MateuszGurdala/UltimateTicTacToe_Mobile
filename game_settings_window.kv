@@ -1,0 +1,282 @@
+<AnchorLayout>
+    anchor_y: "center"
+    anchor_x: "center"
+
+<SwitchButton>
+    normal: 1, 1
+    press: 0.9, 0.9
+    source: "graphics/game_settings_screen/icon_button_normal.png"
+    normal_image: "graphics/game_settings_screen/icon_button_normal.png"
+    switch_image: "graphics/game_settings_screen/icon_button_switch.png"
+
+<GameSettingsWindow>
+    BoxLayout:
+        pos: self.parent.pos
+        size: self.parent.size
+        orientation: "vertical"
+        spacing: 0
+############################################ LAYOUT I #################################################################
+        # Game Settings Graphic
+        AnchorLayout:
+            size_hint: 1, 3/16
+            Image:
+                source: "graphics/game_settings_screen/game_settings.png"
+                size: self.parent.size
+                keep_ratio: False
+                allow_stretch: True
+############################################ LAYOUT II ################################################################
+        # Choosing Game Mode
+        BoxLayout:
+            canvas:
+                Color:
+                    rgba: app.colors["light_yellow"]
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            size_hint: 1, 5/16
+            spacing: 0
+            orientation: "horizontal"
+
+            # Return Button
+            AnchorLayout:
+                size_hint: 2/10, 1
+                HoverButton:
+                    source: "graphics/game_settings_screen/return_normal.png"
+                    normal_image: "graphics/game_settings_screen/return_normal.png"
+                    hover_image: self.normal_image
+                    pressed_image: "graphics/game_settings_screen/return_pressed.png"
+                    size_hint: 0.6, 0.24
+                    normal: 0.6, 0.24
+                    hover: 0.53, 0.21
+                    press: 0.53, 0.21
+                    on_press: self.click()
+                    on_release:
+                        self.release()
+                        app.root.current = "menu_screen"
+                        app.root.transition.direction = "right"
+
+            BoxLayout:
+                size_hint: 8/10, 1
+                orientation: "vertical"
+                spacing: 0
+
+                # Player I
+                BoxLayout:
+                    size_hint: 1, 0.5
+                    AnchorLayout:
+                        size_hint: 0.6, 1
+                        Image:
+                            size_hint: 0.8, 0.8
+                            source: "graphics/game_settings_screen/player.png"
+                            keep_ratio: False
+                            allow_stretch: True
+
+                    AnchorLayout:
+                        size_hint: 0.4, 1
+                        Spinner:
+                            size_hint: 0.9, 0.8
+                            text: "Human Player"
+                            bold: True
+                            font_size: 20
+                            values: "Human Player","AI Easy", "AI Normal", "AI Hard"
+
+                # Player II
+                BoxLayout:
+                    size_hint: 1, 0.5
+                    AnchorLayout:
+                        size_hint: 0.6, 1
+                        Image:
+                            size_hint: 0.8, 0.8
+                            source: "graphics/game_settings_screen/enemy.png"
+                            keep_ratio: False
+                            allow_stretch: True
+
+                    AnchorLayout:
+                        size_hint: 0.4, 1
+                        Spinner:
+                            size_hint: 0.9, 0.8
+                            text: "AI Normal"
+                            bold: True
+                            font_size: 20
+                            values: "Human Player","AI Easy", "AI Normal", "AI Hard"
+############################################ LAYOUT III ###############################################################
+        # Choosing Icons
+        BoxLayout:
+            canvas:
+                Color:
+                    rgba: app.colors["yellow"]
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            size_hint: 1, 8/16
+            orientation: "horizontal"
+            spacing: 0
+
+            # Icons Player I
+            BoxLayout:
+                size_hint: 5/10, 1
+                orientation: "vertical"
+
+                AnchorLayout:
+                    size_hint: 1, 3/8
+                    Image:
+                        size_hint: 0.42, 0.7
+                        source: "graphics/game_settings_screen/icon_button_normal.png"
+                        keep_ratio: False
+                        allow_stretch: True
+
+                AnchorLayout:
+                    size_hint: 1, 5/8
+                    BoxLayout:
+                        size_hint: 0.9, 0.9
+                        orientation: "vertical"
+                        padding: 3
+
+                        # Row I
+                        BoxLayout:
+                            size_hint: 1, 0.33
+                            orientation: "horizontal"
+                            AnchorLayout:
+                                SwitchButton:
+                                    id: player_1
+                                    name: "player_1"
+                                    on_release: app.root.game_settings_screen.game_settings_window.switch_rest(self.name)
+
+                            AnchorLayout:
+                                SwitchButton:
+                                    id: player_2
+                                    name: "player_2"
+                                    on_release: app.root.game_settings_screen.game_settings_window.switch_rest(self.name)
+
+                            AnchorLayout:
+                                SwitchButton:
+                                    id: player_3
+                                    name: "player_3"
+                                    on_release: app.root.game_settings_screen.game_settings_window.switch_rest(self.name)
+
+                        BoxLayout:
+                            size_hint: 1, 0.33
+                            orientation: "horizontal"
+                            AnchorLayout:
+                                SwitchButton:
+                                    id: player_4
+                                    name: "player_4"
+                                    on_release: app.root.game_settings_screen.game_settings_window.switch_rest(self.name)
+
+                            AnchorLayout:
+                                SwitchButton:
+                                    id: player_5
+                                    name: "player_5"
+                                    on_release: app.root.game_settings_screen.game_settings_window.switch_rest(self.name)
+
+                            AnchorLayout:
+                                SwitchButton:
+                                    id: player_6
+                                    name: "player_6"
+                                    on_release: app.root.game_settings_screen.game_settings_window.switch_rest(self.name)
+
+                        BoxLayout:
+                            size_hint: 1, 0.33
+                            orientation: "horizontal"
+                            AnchorLayout:
+                                SwitchButton:
+                                    id: player_7
+                                    name: "player_7"
+                                    on_release: app.root.game_settings_screen.game_settings_window.switch_rest(self.name)
+
+                            AnchorLayout:
+                                SwitchButton:
+                                    id: player_8
+                                    name: "player_8"
+                                    on_release: app.root.game_settings_screen.game_settings_window.switch_rest(self.name)
+
+                            AnchorLayout:
+                                SwitchButton:
+                                    id: player_9
+                                    name: "player_9"
+                                    on_release: app.root.game_settings_screen.game_settings_window.switch_rest(self.name)
+
+
+            # Icons Player II
+            BoxLayout:
+                size_hint: 5/10, 1
+                orientation: "vertical"
+
+                AnchorLayout:
+                    size_hint: 1, 3/8
+                    Image:
+                        size_hint: 0.42, 0.7
+                        source: "graphics/game_settings_screen/icon_button_normal.png"
+                        keep_ratio: False
+                        allow_stretch: True
+
+                AnchorLayout:
+                    size_hint: 1, 5/8
+                    BoxLayout:
+                        size_hint: 0.9, 0.9
+                        orientation: "vertical"
+                        padding: 3
+
+                        # Row I
+                        BoxLayout:
+                            size_hint: 1, 0.33
+                            orientation: "horizontal"
+                            AnchorLayout:
+                                SwitchButton:
+                                    id: enemy_1
+                                    name: "enemy_1"
+                                    on_release: app.root.game_settings_screen.game_settings_window.switch_rest(self.name)
+
+                            AnchorLayout:
+                                SwitchButton:
+                                    id: enemy_2
+                                    name: "enemy_2"
+                                    on_release: app.root.game_settings_screen.game_settings_window.switch_rest(self.name)
+
+                            AnchorLayout:
+                                SwitchButton:
+                                    id: enemy_3
+                                    name: "enemy_3"
+                                    on_release: app.root.game_settings_screen.game_settings_window.switch_rest(self.name)
+
+                        BoxLayout:
+                            size_hint: 1, 0.33
+                            orientation: "horizontal"
+                            AnchorLayout:
+                                SwitchButton:
+                                    id: enemy_4
+                                    name: "enemy_4"
+                                    on_release: app.root.game_settings_screen.game_settings_window.switch_rest(self.name)
+
+                            AnchorLayout:
+                                SwitchButton:
+                                    id: enemy_5
+                                    name: "enemy_5"
+                                    on_release: app.root.game_settings_screen.game_settings_window.switch_rest(self.name)
+
+                            AnchorLayout:
+                                SwitchButton:
+                                    id: enemy_6
+                                    name: "enemy_6"
+                                    on_release: app.root.game_settings_screen.game_settings_window.switch_rest(self.name)
+
+                        BoxLayout:
+                            size_hint: 1, 0.33
+                            orientation: "horizontal"
+                            AnchorLayout:
+                                SwitchButton:
+                                    id: enemy_7
+                                    name: "enemy_7"
+                                    on_release: app.root.game_settings_screen.game_settings_window.switch_rest(self.name)
+
+                            AnchorLayout:
+                                SwitchButton:
+                                    id: enemy_8
+                                    name: "enemy_8"
+                                    on_release: app.root.game_settings_screen.game_settings_window.switch_rest(self.name)
+
+                            AnchorLayout:
+                                SwitchButton:
+                                    id: enemy_9
+                                    name: "enemy_9"
+                                    on_release: app.root.game_settings_screen.game_settings_window.switch_rest(self.name)
