@@ -24,7 +24,11 @@ class GameSettingsWindow(Widget):
         self.player_icons["player_1"].disabled = True
         self.enemy_icons["enemy_2"].disabled = True
         self.enemy_icons["enemy_1"].disabled = True
+        if self.enemy_icons["enemy_1"].disabled_image:
+            self.enemy_icons["enemy_1"].source = self.enemy_icons["enemy_1"].disabled_image
         self.player_icons["player_2"].disabled = True
+        if self.player_icons["player_2"].disabled_image:
+            self.player_icons["player_2"].source = self.player_icons["player_2"].disabled_image
 
     def switch_rest(self, icon_name):
         if icon_name[:6] == "player":
@@ -34,12 +38,16 @@ class GameSettingsWindow(Widget):
             icons_self = self.enemy_icons
             icons_enemy = self.player_icons
 
-        #TODO: FIX
         for i, j in zip(icons_self, icons_enemy):
             if i == icon_name:
                 icons_enemy[j].disabled = True
                 icons_self[i].disabled = True
+                if icons_enemy[j].disabled_image:
+                    icons_enemy[j].source = icons_enemy[j].disabled_image
+            elif icons_enemy[j].source == icons_enemy[j].switch_image:
+                pass
             else:
                 icons_self[i].source = icons_self[i].normal_image
+                icons_enemy[j].source = icons_enemy[j].normal_image
                 icons_enemy[j].disabled = False
                 icons_self[i].disabled = False
