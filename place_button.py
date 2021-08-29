@@ -11,9 +11,9 @@ class PlaceButton(ButtonBehavior, Image):
         self.operation = "change_image"
 
         # Images
-        self.normal_image = "graphics/rectangle/grey.png"
-        self.hover_image = "graphics/rectangle/light_red.png"
-        self.pressed_image = "graphics/rectangle/red.png"
+        self.normal_image = "graphics/game_map/place_normal.png"
+        self.hover_image = "graphics/game_map/place_normal.png"
+        self.pressed_image = "graphics/game_map/place_normal.png"
 
         Window.bind(mouse_pos=self.on_mouse_pos)
 
@@ -40,29 +40,9 @@ class PlaceButton(ButtonBehavior, Image):
 
     def on_click(self):
         Window.unbind(mouse_pos=self.on_mouse_pos)
-        animation.place_sign_animation(self, 1, animation.cross_animation)
-        print(self.number)
+        # animation.place_sign_animation(self, 1, animation.cross_animation)
         print(self.size)
 
     def pass_function(self, *args):
         pass
 
-
-class Main(Widget):
-    def __init__(self):
-        super(Main, self).__init__()
-
-
-class MainApp(App):
-    def __init__(self, *args, **kwargs):
-        super(MainApp, self).__init__(*args, **kwargs)
-        self.title = "PlaceButton"
-        self.colors = colors
-
-    @staticmethod
-    def build():
-        return Main()
-
-
-if __name__ == "__main__":
-    MainApp().run()

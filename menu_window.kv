@@ -29,7 +29,7 @@
                     press: 0.9, 0.9
                     on_release:
                         app.root.current = "game_screen"
-                        app.root.game_screen.game_window.discover_segments()
+                        app.root.game_screen.discover_segments()
                         app.root.transition.direction = "up"
 
             # GS
@@ -77,91 +77,3 @@
                     on_release:
                         app.root.current = "app_settings_screen"
                         app.root.transition.direction = "right"
-
-############################################# LAYOUT I #################################################################
-#        # UltimateTicTacToe Graphic
-#        AnchorLayout:
-#            size_hint: 1, 1/2
-############################################# LAYOUT II ################################################################
-#        # Utility Buttons
-#        BoxLayout:
-#            orientation: "vertical"
-#            size_hint: 1, 1/2
-#            spacing: 0
-#
-#            # PL/GS Buttons
-#            AnchorLayout:
-#                size_hint: 1, 6/8
-#                BoxLayout:
-#                    size_hint: 6/10, 1
-#                    orientation: "vertical"
-#                    spacing: 0
-#
-#                    # PL
-#                    AnchorLayout:
-#                        size_hint: 1, 1/2
-#                        HoverButton:
-#                            source: "graphics/menu_screen/play_normal.png"
-#                            normal_image: "graphics/menu_screen/play_normal.png"
-#                            hover_image: self.normal_image
-#                            pressed_image: "graphics/menu_screen/play_pressed.png"
-#                            size_hint: 0.8, 0.8
-#                            normal: 0.8, 0.8
-#                            hover: 0.75, 0.75
-#                            press: 0.75, 0.75
-#                            on_release:
-#                                app.root.current = "game_screen"
-#                                app.root.game_screen.game_window.discover_segments()
-#                                app.root.transition.direction = "up"
-#
-#                    # GS
-#                    AnchorLayout:
-#                        size_hint: 1, 1/2
-#                        HoverButton:
-#                            size_hint: 0.8, 0.8
-#                            source: "graphics/menu_screen/game_settings_normal.png"
-#                            normal_image: "graphics/menu_screen/game_settings_normal.png"
-#                            hover_image: self.normal_image
-#                            pressed_image: "graphics/menu_screen/game_settings_pressed.png"
-#                            normal: 0.8, 0.8
-#                            hover: 0.75, 0.75
-#                            press: 0.75, 0.75
-#                            on_release:
-#                                app.root.current = "game_settings_screen"
-#                                app.root.transition.direction = "left"
-#
-#            # AS/E Buttons
-#            FloatLayout:
-#                size_hint: 1, 2/8
-#
-#                # AS
-#                AnchorLayout:
-#                    size_hint: 2/10, 1
-#                    pos_hint: {"x": 0}
-#                    HoverButton:
-#                        size_hint: 0.7, 0.7
-#                        source: "graphics/menu_screen/settings_normal.png"
-#                        normal_image: "graphics/menu_screen/settings_normal.png"
-#                        hover_image: "graphics/menu_screen/settings_hover.png"
-#                        pressed_image: self.hover_image
-#                        normal: 0.7, 0.7
-#                        hover: self.normal
-#                        press: 0.65, 0.65
-#                        on_release:
-#                            app.root.current = "app_settings_screen"
-#                            app.root.transition.direction = "right"
-#
-#                # E
-#                AnchorLayout:
-#                    size_hint: 2/10, 1
-#                    pos_hint: {"x": 0.8}
-#                    HoverButton:
-#                        size_hint: 0.7, 0.7
-#                        source: "graphics/menu_screen/exit_normal.png"
-#                        normal_image: "graphics/menu_screen/exit_normal.png"
-#                        hover_image: "graphics/menu_screen/exit_hover.png"
-#                        pressed_image: self.hover_image
-#                        normal: 0.7, 0.7
-#                        hover: self.normal
-#                        press: 0.65, 0.65
-#                        on_release: app.stop()

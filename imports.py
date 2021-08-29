@@ -17,7 +17,8 @@ from kivy.animation import Animation
 from animation import animation
 
 colors = {
-    "light_blue": get_color_from_hex("#a1d1cc"),
+    "light_blue": get_color_from_hex("#8cfffb"),
+    "blue": get_color_from_hex("#159a96"),
     "dark_blue": get_color_from_hex("#2ea699"),
     "green": get_color_from_hex("#23e615"),
     "dark_green": get_color_from_hex("#49ba1f"),

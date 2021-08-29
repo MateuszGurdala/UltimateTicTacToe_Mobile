@@ -1,7 +1,6 @@
 from imports import *
 
 Builder.load_file("switch_button.kv")
-Window.size = 200, 200
 
 
 class SwitchButton(ButtonBehavior, Image):
@@ -15,6 +14,7 @@ class SwitchButton(ButtonBehavior, Image):
         # Images
         self.normal_image = None
         self.switch_image = None
+        self.disabled_image = None
 
     # Action methods
     def click(self):

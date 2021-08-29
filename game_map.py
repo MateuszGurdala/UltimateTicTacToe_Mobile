@@ -2,7 +2,6 @@ from imports import *
 from segment import Segment
 
 Builder.load_file("game_map.kv")
-Window.size = 400, 400
 
 
 class GameMap(FloatLayout):
@@ -25,16 +24,3 @@ class GameMap(FloatLayout):
             for j in self.segments[i].places:
                 self.segments[i].places[j].size_hint = 0,0
 
-class MainApp(App):
-    def __init__(self, *args, **kwargs):
-        super(MainApp, self).__init__(*args, **kwargs)
-        self.title = "Game Map"
-        self.colors = colors
-
-    @staticmethod
-    def build():
-        return GameMap()
-
-
-if __name__ == "__main__":
-    MainApp().run()
