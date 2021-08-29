@@ -11,22 +11,54 @@ class GameSettingsWindow(Widget):
         self.player_icons = dict()
         self.enemy_icons = dict()
 
+        self.icons = {
+            "player_1": "graphics/icons/circle_place.png",
+            "player_2": "graphics/icons/cross_place.png",
+            "player_3": "graphics/icons/triangle_place.png",
+            "player_4": "graphics/icons/icon_button_normal.png",
+            "player_5": "graphics/icons/icon_button_normal.png",
+            "player_6": "graphics/icons/icon_button_normal.png",
+            "player_7": "graphics/icons/icon_button_normal.png",
+            "player_8": "graphics/icons/icon_button_normal.png",
+            "player_9": "graphics/icons/icon_button_normal.png",
+            "enemy_1": "graphics/icons/circle_place.png",
+            "enemy_2": "graphics/icons/cross_place.png",
+            "enemy_3": "graphics/icons/triangle_place.png",
+            "enemy_4": "graphics/icons/icon_button_normal.png",
+            "enemy_5": "graphics/icons/icon_button_normal.png",
+            "enemy_6": "graphics/icons/icon_button_normal.png",
+            "enemy_7": "graphics/icons/icon_button_normal.png",
+            "enemy_8": "graphics/icons/icon_button_normal.png",
+            "enemy_9": "graphics/icons/icon_button_normal.png"
+        }
+
     def create_references(self):
-        n = 1
+        # Icon displays references
+        self.display_player = self.ids["display_player"].__self__
+        self.display_enemy = self.ids["display_enemy"].__self__
+
+        # All icon pickers references
         for i in self.ids:
-            if n < 10:
+            if i[0] == "p":
                 self.player_icons[i] = self.ids[i].__self__
-            else:
+            elif i[0] == "e":
                 self.enemy_icons[i] = self.ids[i].__self__
-            n += 1
+
+        # Starting conditions
         self.player_icons["player_1"].switch()
-        self.enemy_icons["enemy_2"].switch()
         self.player_icons["player_1"].disabled = True
+        self.display_player.source = self.player_icons["player_1"].normal_image
+
+        self.enemy_icons["enemy_2"].switch()
         self.enemy_icons["enemy_2"].disabled = True
+        self.display_enemy.source = self.enemy_icons["enemy_2"].normal_image
+
         self.enemy_icons["enemy_1"].disabled = True
+        self.player_icons["player_2"].disabled = True
+
         if self.enemy_icons["enemy_1"].disabled_image:
             self.enemy_icons["enemy_1"].source = self.enemy_icons["enemy_1"].disabled_image
-        self.player_icons["player_2"].disabled = True
+
         if self.player_icons["player_2"].disabled_image:
             self.player_icons["player_2"].source = self.player_icons["player_2"].disabled_image
 
