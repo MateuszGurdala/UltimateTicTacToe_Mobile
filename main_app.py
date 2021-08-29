@@ -50,6 +50,8 @@ class GameManager(ScreenManager):
     def __init__(self, *args, **kwargs):
         super(GameManager, self).__init__(*args, **kwargs)
         self.transition = CardTransition()
+
+        # Creating all app references
         self.menu_screen = self.ids["menu_screen"].__self__
         self.game_screen = self.ids["game_screen"].__self__
         self.game_settings_screen = self.ids["game_settings_screen"].__self__
@@ -60,11 +62,36 @@ class GameManager(ScreenManager):
         self.game_screen.create_references()
         self.game_settings_screen.create_references()
 
+        self.game_settings_screen = self.game_settings_screen.game_settings_window
+        self.game_screen = self.game_screen.game_window
+
+        # Game info
+        self.player_sign = self.game_settings_screen.icons["player_1"]
+        self.enemy_sign = self.game_settings_screen.icons["enemy_2"]
+        self.current_sign = self.player_sign
+
+    def set_player_sign(self, sign_name):
+        player_data = self.game_settings_screen.display_player, self.game_settings_screen.player_icons
+        enemy_data = self.game_settings_screen.display_enemy, self.game_settings_screen.enemy_icons
+        display, icons = player_data if sign_name[0] == "p" else enemy_data
+
+        # Changing icon on display
+        display.source = icons[sign_name].normal_image
+
+        # Changing gaming icon
+        if sign_name[0] == "p":
+            self.player_sign = self.game_settings_screen.icons[sign_name]
+        elif sign_name[0] == "e":
+            self.enemy_sign = self.game_settings_screen.icons[sign_name]
+            
+        ####################################
+        self.current_sign = self.player_sign
+
 
 class MainApp(App):
     def __init__(self, *args, **kwargs):
         super(MainApp, self).__init__(*args, **kwargs)
-        self.title = "Main App"
+        self.title = "UltimateTicTacToe"
         self.colors = colors
 
     @staticmethod
