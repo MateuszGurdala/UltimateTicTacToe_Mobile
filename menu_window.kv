@@ -30,6 +30,8 @@
                     on_release:
                         app.root.current = "game_screen"
                         app.root.game_screen.discover_segments()
+                        app.root.game_screen.disable_segments()
+                        app.root.game_screen.activate_segment("5")
                         app.root.transition.direction = "up"
 
             # GS

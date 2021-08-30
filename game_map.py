@@ -22,5 +22,19 @@ class GameMap(FloatLayout):
     def hide_segments(self):
         for i in self.segments:
             for j in self.segments[i].places:
-                self.segments[i].places[j].size_hint = 0,0
+                self.segments[i].places[j].size_hint = 0, 0
 
+    def reset(self):
+        for i in self.segments:
+            for j in self.segments[i].places:
+                self.segments[i].places[j].source = self.segments[i].places[j].normal_image
+
+    def disable_segments(self):
+        for i in self.segments:
+            for j in self.segments[i].places:
+                self.segments[i].places[j].disabled = True
+
+    def activate_segment(self, segment_number):
+        for i in self.segments[segment_number].places:
+            if not self.segments[segment_number].places[i].if_disabled:
+                self.segments[segment_number].places[i].disabled = False

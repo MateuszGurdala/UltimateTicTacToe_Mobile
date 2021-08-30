@@ -61,7 +61,7 @@
                     normal_image: "graphics/game_screen/extend_normal.png"
                     switch_image: "graphics/game_screen/extend_switched.png"
                     on_release:
-                        self.parent.parent.parent.parent.extend_game_log()
+                        app.root.game_screen.extend_game_log()
 
             # Instant Place
             AnchorLayout:
@@ -87,4 +87,6 @@
                     on_release:
                         app.root.current = "menu_screen"
                         app.root.game_screen.hide_segments()
+                        app.root.game_screen.reset_game_map()
+                        app.root.restart_game_engine()
                         app.root.transition.direction = "down"
