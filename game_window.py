@@ -10,6 +10,11 @@ class GameWindow(Widget):
     def __init__(self, *args, **kwargs):
         super(GameWindow, self).__init__(*args, **kwargs)
 
+        # References
+        self.game_map = None
+        self.game_map_layout = None
+        self.game_log_layout = None
+
         self.log_extended = False
 
     def create_references(self):
@@ -26,16 +31,26 @@ class GameWindow(Widget):
 
     def extend_game_log(self):
         if not self.log_extended:
-            Animation(size_hint=(1, 12 / 16), duration=0.2).start(self.game_log_layout)
-            Animation(size_hint=(1, 1 / 16), duration=0.2).start(self.game_map_layout)
+            animation.extend_log(self.game_log_layout, self.game_map_layout, 3 / 13)
             self.log_extended = True
         elif self.log_extended:
-            Animation(size_hint=(1, 3 / 16), duration=0.2).start(self.game_log_layout)
-            Animation(size_hint=(1, 10 / 16), duration=0.2).start(self.game_map_layout)
+            animation.hide_log(self.game_log_layout, self.game_map_layout, 12.5 / 13)
             self.log_extended = False
 
     def discover_segments(self):
         Clock.schedule_once(lambda a: self.game_map.discover_segments(), 1)
 
+    def disable_segments(self):
+        self.game_map.disable_segments()
+
+    def activate_segment(self, segment_number):
+        self.game_map.activate_segment(segment_number)
+
     def hide_segments(self):
         Clock.schedule_once(lambda a: self.game_map.hide_segments(), 1)
+
+    def reset_game_map(self):
+        Clock.schedule_once(lambda a: self.game_map.reset(), 1)
+
+    def place_sign(self, segment_number, place_number, sign_graphic):
+        self.game_map.segments[segment_number].places[place_number].source = sign_graphic
