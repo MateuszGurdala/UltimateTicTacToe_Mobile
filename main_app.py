@@ -1,22 +1,28 @@
-# TODO: create own spinner
-from kivy.config import Config
-
-Config.set('graphics', 'position', 'custom')
-Config.set('graphics', 'left', 700)
-Config.set('graphics', 'top', 100)
-Config.set('graphics', 'resizable', 0)
-Config.set('graphics', 'borderless', 'true')
-
 from imports import *
 from game_window import GameWindow
 from menu_window import MenuWindow
 from game_settings_window import GameSettingsWindow
 from app_settings_window import AppSettingsWindow
+from game_template import Game, Segment
 
 Builder.load_file("main_app.kv")
-val = 50
-Window.size = 10 * val, 16 * val
 
+# TODO: MAKE THE GAME PLAYABLE
+"""
+Implement TicTacToe_AI
+Make segment highlight
+Make visualisation for segment choosing method
+Change segment color when finished
+Make the game winnable
+Add AI levels (random, depth=0, depth=3)
+"""
+
+
+# TODO: create own spinner
+# TODO: Finish game log
+# TODO: Return to the main menu alert popup
+# TODO: Icon placing animations
+# TODO: Make Instant Place button do something
 
 class MenuScreen(Screen):
     def __init__(self, *args, **kwargs):
@@ -27,6 +33,8 @@ class GameScreen(Screen):
     def __init__(self, *args, **kwargs):
         super(GameScreen, self).__init__(*args, **kwargs)
 
+        self.game_window = None
+
     def create_references(self):
         self.game_window = self.ids["game_window"].__self__
         self.game_window.create_references()
@@ -35,6 +43,8 @@ class GameScreen(Screen):
 class GameSettingsScreen(Screen):
     def __init__(self, *args, **kwargs):
         super(GameSettingsScreen, self).__init__(*args, **kwargs)
+
+        self.game_settings_window = None
 
     def create_references(self):
         self.game_settings_window = self.ids["game_settings_window"].__self__
@@ -56,6 +66,20 @@ class GameManager(ScreenManager):
         self.game_screen = self.ids["game_screen"].__self__
         self.game_settings_screen = self.ids["game_settings_screen"].__self__
         self.app_settings_screen = self.ids["app_settings_screen"].__self__
+
+        # Game info
+        self.player_sign = None
+        self.enemy_sign = None
+        self.current_sign = None
+
+        # Game engine
+        self.game_engine = Game()
+        self.game_engine.player_sign = "X"
+        self.game_engine.enemy_sign = "O"
+        # TODO: DELETE THIS
+        self.game_engine.current_segment = "5"
+
+        # Creating app elements references
         self.create_references()
 
     def create_references(self):
@@ -83,21 +107,44 @@ class GameManager(ScreenManager):
             self.player_sign = self.game_settings_screen.icons[sign_name]
         elif sign_name[0] == "e":
             self.enemy_sign = self.game_settings_screen.icons[sign_name]
-            
+
         ####################################
         self.current_sign = self.player_sign
 
+    def restart_game_engine(self):
+        self.game_engine.game_map.segments = {str(i): Segment(str(i)) for i in range(1, 10)}
+        # TODO: DELETE THIS
+        self.game_engine.current_segment = "5"
 
-class MainApp(App):
-    def __init__(self, *args, **kwargs):
-        super(MainApp, self).__init__(*args, **kwargs)
-        self.title = "UltimateTicTacToe"
-        self.colors = colors
+    def next_turn(self, place_number):
+        # Player turn
+        self.game_screen.place_sign(self.game_engine.current_segment, place_number, self.player_sign)
+        self.game_engine.place_sign(self.game_engine.current_segment, place_number, self.game_engine.player_sign)
 
-    @staticmethod
-    def build():
-        return GameManager()
+        self.game_screen.disable_segments()
+        self.game_engine.game_map.update()
+        self.game_screen.game_map.segments[self.game_engine.current_segment].places[place_number].if_disabled = True
 
+        self.game_engine.game_map.print()
+        print(self.game_engine.current_segment, place_number)
 
-if __name__ == "__main__":
-    MainApp().run()
+        self.game_engine.current_segment = place_number
+
+        # Enemy turn
+        Clock.schedule_once(lambda a: self.enemy_turn(), 2)
+
+    def enemy_turn(self):
+        enemy_place_number = self.game_engine.ai_pick_place_number()
+
+        self.game_screen.place_sign(self.game_engine.current_segment, enemy_place_number, self.enemy_sign)
+        self.game_engine.place_sign(self.game_engine.current_segment, enemy_place_number, self.game_engine.enemy_sign)
+
+        self.game_screen.game_map.segments[self.game_engine.current_segment].places[enemy_place_number].on_click()
+        self.game_engine.game_map.update()
+        self.game_screen.game_map.segments[self.game_engine.current_segment].places[enemy_place_number].if_disabled = True
+
+        self.game_engine.game_map.print()
+        print(self.game_engine.current_segment, enemy_place_number)
+
+        self.game_engine.current_segment = enemy_place_number
+        self.game_screen.activate_segment(enemy_place_number)
