@@ -15,6 +15,7 @@ from kivy.uix.screenmanager import ScreenManager, Screen, CardTransition
 from kivy.animation import Animation
 
 from animation import animation
+from random import randint
 
 colors = {
     "light_blue": get_color_from_hex("#8cfffb"),

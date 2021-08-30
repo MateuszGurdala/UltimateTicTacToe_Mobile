@@ -9,6 +9,7 @@ class PlaceButton(ButtonBehavior, Image):
         super(PlaceButton, self).__init__(*args, **kwargs)
         self.number = None
         self.operation = "change_image"
+        self.if_disabled = None
 
         # Images
         self.normal_image = "graphics/game_map/place_normal.png"
@@ -41,8 +42,6 @@ class PlaceButton(ButtonBehavior, Image):
     def on_click(self):
         Window.unbind(mouse_pos=self.on_mouse_pos)
         # animation.place_sign_animation(self, 1, animation.cross_animation)
-        print(self.size)
 
     def pass_function(self, *args):
         pass
-

@@ -11,6 +11,10 @@ class GameSettingsWindow(Widget):
         self.player_icons = dict()
         self.enemy_icons = dict()
 
+        # Icon displays
+        self.display_player = None
+        self.display_enemy = None
+
         self.icons = {
             "player_1": "graphics/icons/circle_place.png",
             "player_2": "graphics/icons/cross_place.png",
@@ -63,6 +67,9 @@ class GameSettingsWindow(Widget):
             self.player_icons["player_2"].source = self.player_icons["player_2"].disabled_image
 
     def switch_rest(self, icon_name):
+        icons_self = None
+        icons_enemy = None
+
         if icon_name[:6] == "player":
             icons_self = self.player_icons
             icons_enemy = self.enemy_icons

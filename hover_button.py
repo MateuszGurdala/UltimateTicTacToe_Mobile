@@ -7,6 +7,8 @@ Window.size = 200, 200
 class HoverButton(ButtonBehavior, Image):
     def __init__(self, *args, **kwargs):
         super(HoverButton, self).__init__(*args, **kwargs)
+
+        # Size hints depending based on button states
         self.normal = None
         self.hover = None
         self.press = None
