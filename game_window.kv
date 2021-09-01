@@ -86,7 +86,5 @@
                     pressed_image: "graphics/game_screen/return_pressed.png"
                     on_release:
                         app.root.current = "menu_screen"
-                        app.root.game_screen.hide_segments()
-                        app.root.game_screen.reset_game_map()
-                        app.root.restart_game_engine()
+                        app.root.restart()
                         app.root.transition.direction = "down"
