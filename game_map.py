@@ -49,8 +49,8 @@ class GameMap(FloatLayout):
         root = self.parent.parent.parent.parent.parent.parent
         button = Button(pos=segment.pos,
                         size=segment.size,
-                        background_normal="graphics/game_map/test.png",
-                        background_down="graphics/game_map/test.png",
+                        background_normal="graphics/game_map/choose_segment_button.png",
+                        background_down="graphics/game_map/choose_segment_button.png",
                         on_release=lambda a: root.set_current_segment(segment_number),
                         disabled=if_disabled)
         self.segments[segment_number].choose_button = button
