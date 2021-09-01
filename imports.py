@@ -9,10 +9,11 @@ from kivy.uix.label import Label
 from kivy.clock import Clock
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.floatlayout import FloatLayout
-from kivy.graphics import Canvas, Color
+from kivy.graphics import *
 from kivy.uix.image import Image
 from kivy.uix.screenmanager import ScreenManager, Screen, CardTransition
 from kivy.animation import Animation
+from kivy.uix.popup import Popup
 
 from animation import animation
 from random import randint

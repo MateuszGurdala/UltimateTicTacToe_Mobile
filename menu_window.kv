@@ -1,3 +1,5 @@
+#:import Clock kivy.clock.Clock
+
 <AnchorLayout>
     anchor_x: "center"
     anchor_y: "center"
@@ -30,9 +32,9 @@
                     on_release:
                         app.root.current = "game_screen"
                         app.root.game_screen.discover_segments()
-                        app.root.game_screen.disable_segments()
-                        app.root.game_screen.activate_segment("5")
+                        app.root.game_map.disable_segments()
                         app.root.transition.direction = "up"
+                        Clock.schedule_once(lambda a: app.root.game_screen.create_choose_segment_buttons(), 3)
 
             # GS
             AnchorLayout:

@@ -39,8 +39,12 @@ class PlaceButton(ButtonBehavior, Image):
         elif operation == "change_image":
             self.source = self.hover_image
 
-    def on_click(self):
+    def press(self):
+        self.size_hint = 0.8, 0.8
+
+    def release(self):
         Window.unbind(mouse_pos=self.on_mouse_pos)
+        self.size_hint = 1, 1
         # animation.place_sign_animation(self, 1, animation.cross_animation)
 
     def pass_function(self, *args):

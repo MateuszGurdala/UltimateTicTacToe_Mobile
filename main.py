@@ -10,7 +10,7 @@ from imports import *
 from main_app import GameManager
 
 val = 50
-Window.size = 9 * val, 19.5 * val
+Window.size = 10 * val, 16 * val
 
 
 class MainApp(App):

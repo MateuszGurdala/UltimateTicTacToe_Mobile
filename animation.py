@@ -59,7 +59,6 @@ class Animation:
         Clock.schedule_once(lambda a: self.extend_log(game_log, game_map, val), 0.001)
 
     def hide_log(self, game_log, game_map, val):
-        print(game_log.size_hint, game_map.size_hint)
         if val <= 3 / 13:
             game_log.size_hint = 1, 3 / 13
             game_map.size_hint = 1, 10 / 13

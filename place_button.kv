@@ -4,8 +4,9 @@
     pos: self.parent.pos
     allow_stretch: True
     keep_ratio: False
-    on_press:
-        self.on_click()
-        self.source = app.root.current_sign
+    on_press: self.press()
+    on_release:
+        self.release()
+        self.source = app.root.player_sign
         app.root.next_turn(self.number)
 
