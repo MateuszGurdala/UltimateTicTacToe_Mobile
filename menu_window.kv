@@ -27,7 +27,7 @@
                     hover_image: self.normal_image
                     pressed_image: "graphics/menu_screen/play_pressed.png"
                     normal: 1, 1
-                    hover: 0.95, 0.95
+                    hover: 1, 1
                     press: 0.9, 0.9
                     on_release:
                         app.root.current = "game_screen"
@@ -46,7 +46,7 @@
                     hover_image: self.normal_image
                     pressed_image: "graphics/menu_screen/game_settings_pressed.png"
                     normal: 1, 1
-                    hover: 0.95, 0.95
+                    hover: 1, 1
                     press: 0.9, 0.9
                     on_release:
                         app.root.current = "game_settings_screen"
@@ -59,10 +59,10 @@
                 HoverButton:
                     source: "graphics/menu_screen/exit_normal.png"
                     normal_image: "graphics/menu_screen/exit_normal.png"
-                    hover_image: "graphics/menu_screen/exit_hover.png"
-                    pressed_image: self.hover_image
+                    hover_image: "graphics/menu_screen/exit_normal.png"
+                    pressed_image: "graphics/menu_screen/exit_hover.png"
                     normal: 1, 1
-                    hover: 0.95, 0.95
+                    hover: 1, 1
                     press: 0.9, 0.9
                     on_release: app.stop()
 
@@ -76,7 +76,7 @@
                     hover_image: self.normal_image
                     pressed_image: "graphics/menu_screen/settings_hover.png"
                     normal: 1, 1
-                    hover: 0.95, 0.95
+                    hover: 1, 1
                     press: 0.9, 0.9
                     on_release:
                         app.root.current = "app_settings_screen"

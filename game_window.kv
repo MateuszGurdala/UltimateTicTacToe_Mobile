@@ -54,7 +54,9 @@
                     press: 0.9, 0.9
                     source: "graphics/game_screen/extend_normal.png"
                     normal_image: "graphics/game_screen/extend_normal.png"
+                    disabled_image: "graphics/game_screen/extend_disabled.png"
                     switch_image: "graphics/game_screen/extend_switched.png"
+                    on_press: self.source = self.disabled_image
 
             # Instant Place
             AnchorLayout:
@@ -64,7 +66,9 @@
                     press: 0.9, 0.9
                     source: "graphics/game_screen/instant_press_normal.png"
                     normal_image: "graphics/game_screen/instant_press_normal.png"
+                    disabled_image: "graphics/game_screen/instant_press_disabled.png"
                     switch_image: "graphics/game_screen/instant_press_switched.png"
+                    on_press: self.source = self.disabled_image
 
             # Return to Main Menu
             AnchorLayout:
@@ -75,10 +79,7 @@
                     press: 0.9, 0.9
                     source: "graphics/game_screen/return_normal.png"
                     normal_image: "graphics/game_screen/return_normal.png"
-                    hover_image: "graphics/game_screen/return_pressed.png"
+                    hover_image: self.normal_image
                     pressed_image: "graphics/game_screen/return_pressed.png"
                     on_release:
-#                        app.root.current = "menu_screen"
-#                        app.root.restart()
-#                        app.root.transition.direction = "down"
                         Factory.ReturnPopup().open()

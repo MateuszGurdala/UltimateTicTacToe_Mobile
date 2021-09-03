@@ -6,7 +6,7 @@ Builder.load_file("switch_button.kv")
 class SwitchButton(ButtonBehavior, Image):
     def __init__(self, *args, **kwargs):
         super(SwitchButton, self).__init__(*args, **kwargs)
-        self.name = None
+        self.switched = False
 
         self.normal = None
         self.press = None
@@ -21,10 +21,12 @@ class SwitchButton(ButtonBehavior, Image):
         self.size_hint = self.press
 
     def switch(self):
-        if self.source == self.normal_image:
-            self.source = self.switch_image
-        elif self.source == self.switch_image:
+        if self.switched:
             self.source = self.normal_image
+            self.switched = False
+        else:
+            self.source = self.switch_image
+            self.switched = True
         self.size_hint = self.normal
 
     def pass_function(self):
