@@ -1,4 +1,62 @@
+<AnchorLayout>
+    anchor_x: "center"
+    anchor_y: "center"
 <ReturnPopup>
+    auto_dismiss: False
+    title: ""
+    separator_height: 0
+    size_hint: 0.8, 0.4
+
+    AnchorLayout:
+        size_hint: 1.2 ,1.2
+
+        FloatLayout:
+            FloatLayout:
+                canvas.before:
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                        source: "graphics/popups/popup_background.png"
+                size_hint: 1.1, 1
+                pos_hint: {"x": -0.05, "y": -0.05}
+                padding: 5
+                spacing: 5
+
+                BoxLayout:
+                    size_hint: 1, 0.3
+                    pos_hint: {"x": 0, "y": 0.01}
+                    orientation: "horizontal"
+                    padding: 10
+                    spacing: 5
+
+                    # Cancel Button
+                    AnchorLayout:
+                        HoverButton:
+                            source: "graphics/popups/cancel_normal.png"
+                            normal_image: "graphics/popups/cancel_normal.png"
+                            hover_image: self.normal_image
+                            pressed_image: "graphics/popups/cancel_pressed.png"
+                            normal: 1, 1
+                            hover: 0.95, 0.95
+                            press: 0.9, 0.9
+                            on_release:
+                                root.dismiss()
+
+                    # Return Button
+                    AnchorLayout:
+                        HoverButton:
+                            source: "graphics/popups/return_normal.png"
+                            normal_image: "graphics/popups/return_normal.png"
+                            hover_image: self.normal_image
+                            pressed_image: "graphics/popups/return_pressed.png"
+                            normal: 1, 1
+                            hover: 0.95, 0.95
+                            press: 0.9, 0.9
+                            on_release:
+                                root.dismiss()
+                                app.root.current = "menu_screen"
+                                app.root.restart()
+                                app.root.transition.direction = "down"
 
 
 <WinnerPopup>
