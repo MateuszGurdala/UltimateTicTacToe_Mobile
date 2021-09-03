@@ -46,7 +46,7 @@ class GameMap(FloatLayout):
     def create_choose_button(self, segment_number, if_disabled=False):
         segment = self.segments[segment_number]
         # It looks terrible but everything else failed
-        root = self.parent.parent.parent.parent.parent.parent
+        root = self.parent.parent.parent.parent.parent
         button = Button(pos=segment.pos,
                         size=segment.size,
                         background_normal="graphics/game_map/choose_segment_button.png",

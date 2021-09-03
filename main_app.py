@@ -114,6 +114,7 @@ class GameManager(ScreenManager):
         # Restarting GUI
         self.game_screen.hide_segments()
         self.game_screen.remove_highlight()
+        self.game_screen.remove_segment_winner_highlight()
         self.game_screen.reset_game_map()
         self.game_screen.remove_choose_segment_buttons()
 

@@ -2,6 +2,7 @@ from imports import *
 from game_map import GameMap
 from hover_button import HoverButton
 from switch_button import SwitchButton
+from popups import ReturnPopup
 
 Builder.load_file("game_window.kv")
 
@@ -58,6 +59,11 @@ class GameWindow(Widget):
         for i in self.game_map.segments:
             if not self.game_map.segments[i].highlight:
                 self.game_map.segments[i].canvas.before.clear()
+
+    def remove_segment_winner_highlight(self):
+        for i in self.game_map.segments:
+            self.game_map.segments[i].highlight = None
+            self.game_map.segments[i].canvas.before.clear()
 
     def create_choose_segment_buttons(self, if_disabled=False):
         for i in self.game_map.segments:
