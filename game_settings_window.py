@@ -22,18 +22,39 @@ class GameSettingsWindow(Widget):
             "player_4": "graphics/icons/beer_place.png",
             "player_5": "graphics/icons/vodka_place.png",
             "player_6": "graphics/icons/wine_place.png",
-            "player_7": "graphics/icons/icon_button_normal.png",
-            "player_8": "graphics/icons/icon_button_normal.png",
-            "player_9": "graphics/icons/icon_button_normal.png",
+            "player_7": "graphics/icons/dog_place.png",
+            "player_8": "graphics/icons/cat_place.png",
+            "player_9": "graphics/icons/pigeon_place.png",
             "enemy_1": "graphics/icons/circle_place.png",
             "enemy_2": "graphics/icons/cross_place.png",
             "enemy_3": "graphics/icons/triangle_place.png",
             "enemy_4": "graphics/icons/beer_place.png",
             "enemy_5": "graphics/icons/vodka_place.png",
             "enemy_6": "graphics/icons/wine_place.png",
-            "enemy_7": "graphics/icons/icon_button_normal.png",
-            "enemy_8": "graphics/icons/icon_button_normal.png",
-            "enemy_9": "graphics/icons/icon_button_normal.png"
+            "enemy_7": "graphics/icons/dog_place.png",
+            "enemy_8": "graphics/icons/cat_place.png",
+            "enemy_9": "graphics/icons/pigeon_place.png"
+        }
+
+        self.displays = {
+            "player_1": "graphics/icons/circle_icon_display.png",
+            "player_2": "graphics/icons/cross_icon_display.png",
+            "player_3": "graphics/icons/triangle_icon_display.png",
+            "player_4": "graphics/icons/beer_icon_display.png",
+            "player_5": "graphics/icons/vodka_icon_display.png",
+            "player_6": "graphics/icons/wine_icon_display.png",
+            "player_7": "graphics/icons/dog_icon_display.png",
+            "player_8": "graphics/icons/cat_icon_display.png",
+            "player_9": "graphics/icons/pigeon_icon_display.png",
+            "enemy_1": "graphics/icons/circle_icon_display.png",
+            "enemy_2": "graphics/icons/cross_icon_display.png",
+            "enemy_3": "graphics/icons/triangle_icon_display.png",
+            "enemy_4": "graphics/icons/beer_icon_display.png",
+            "enemy_5": "graphics/icons/vodka_icon_display.png",
+            "enemy_6": "graphics/icons/wine_icon_display.png",
+            "enemy_7": "graphics/icons/dog_icon_display.png",
+            "enemy_8": "graphics/icons/cat_icon_display.png",
+            "enemy_9": "graphics/icons/pigeon_icon_display.png"
         }
 
     def create_references(self):
@@ -51,11 +72,11 @@ class GameSettingsWindow(Widget):
         # Starting conditions
         self.player_icons["player_1"].switch()
         self.player_icons["player_1"].disabled = True
-        self.display_player.source = self.player_icons["player_1"].normal_image
+        self.display_player.source = self.displays["player_1"]
 
         self.enemy_icons["enemy_2"].switch()
         self.enemy_icons["enemy_2"].disabled = True
-        self.display_enemy.source = self.enemy_icons["enemy_2"].normal_image
+        self.display_enemy.source = self.displays["enemy_2"]
 
         self.enemy_icons["enemy_1"].disabled = True
         self.player_icons["player_2"].disabled = True
@@ -87,6 +108,8 @@ class GameSettingsWindow(Widget):
                 pass
             else:
                 icons_self[i].source = icons_self[i].normal_image
+                icons_self[i].switched = False
                 icons_enemy[j].source = icons_enemy[j].normal_image
+                icons_enemy[j].switched = False
                 icons_enemy[j].disabled = False
                 icons_self[i].disabled = False

@@ -5,10 +5,10 @@
 <SwitchButton>
     normal: 1, 1
     press: 0.9, 0.9
-    source: "graphics/game_settings_screen/icon_button_normal.png"
-    normal_image: "graphics/game_settings_screen/icon_button_normal.png"
-    switch_image: "graphics/game_settings_screen/icon_button_switch.png"
-    disabled_image: "graphics/game_settings_screen/icon_button_disabled.png"
+    source: "graphics/icons/icon_normal.png"
+    normal_image: "graphics/icons/icon_normal.png"
+    switch_image: "graphics/icons/icon_switch.png"
+    disabled_image: "graphics/icons/icon_disabled.png"
 
 <GameSettingsWindow>
     BoxLayout:
@@ -97,7 +97,7 @@
                     Image:
                         id: display_player
                         size_hint: 0.42, 0.7
-                        source: "graphics/game_settings_screen/icon_button_normal.png"
+                        source: "graphics/icons/icon_normal.png"
                         keep_ratio: False
                         allow_stretch: True
 
@@ -120,6 +120,7 @@
                                     normal_image: "graphics/icons/circle_icon_normal.png"
                                     switch_image: "graphics/icons/circle_icon_switch.png"
                                     disabled_image: "graphics/icons/circle_icon_disabled.png"
+                                    on_press: self.source = self.disabled_image
                                     on_release:
                                         app.root.game_settings_screen.switch_rest(self.name)
                                         app.root.set_player_sign(self.name)
@@ -132,6 +133,7 @@
                                     normal_image: "graphics/icons/cross_icon_normal.png"
                                     switch_image: "graphics/icons/cross_icon_switch.png"
                                     disabled_image: "graphics/icons/cross_icon_disabled.png"
+                                    on_press: self.source = self.disabled_image
                                     on_release:
                                         app.root.game_settings_screen.switch_rest(self.name)
                                         app.root.set_player_sign(self.name)
@@ -144,6 +146,7 @@
                                     normal_image: "graphics/icons/triangle_icon_normal.png"
                                     switch_image: "graphics/icons/triangle_icon_switch.png"
                                     disabled_image: "graphics/icons/triangle_icon_disabled.png"
+                                    on_press: self.source = self.disabled_image
                                     on_release:
                                         app.root.game_settings_screen.switch_rest(self.name)
                                         app.root.set_player_sign(self.name)
@@ -159,6 +162,7 @@
                                     normal_image: "graphics/icons/beer_icon_normal.png"
                                     switch_image: "graphics/icons/beer_icon_switch.png"
                                     disabled_image: "graphics/icons/beer_icon_disabled.png"
+                                    on_press: self.source = self.disabled_image
                                     on_release:
                                         app.root.game_settings_screen.switch_rest(self.name)
                                         app.root.set_player_sign(self.name)
@@ -171,6 +175,7 @@
                                     normal_image: "graphics/icons/vodka_icon_normal.png"
                                     switch_image: "graphics/icons/vodka_icon_switch.png"
                                     disabled_image: "graphics/icons/vodka_icon_disabled.png"
+                                    on_press: self.source = self.disabled_image
                                     on_release:
                                         app.root.game_settings_screen.switch_rest(self.name)
                                         app.root.set_player_sign(self.name)
@@ -182,6 +187,7 @@
                                     normal_image: "graphics/icons/wine_icon_normal.png"
                                     switch_image: "graphics/icons/wine_icon_switch.png"
                                     disabled_image: "graphics/icons/wine_icon_disabled.png"
+                                    on_press: self.source = self.disabled_image
                                     on_release:
                                         app.root.game_settings_screen.switch_rest(self.name)
                                         app.root.set_player_sign(self.name)
@@ -193,6 +199,11 @@
                                 SwitchButton:
                                     id: player_7
                                     name: "player_7"
+                                    source: "graphics/icons/dog_icon_normal.png"
+                                    normal_image: "graphics/icons/dog_icon_normal.png"
+                                    switch_image: "graphics/icons/dog_icon_switch.png"
+                                    disabled_image: "graphics/icons/dog_icon_disabled.png"
+                                    on_press: self.source = self.disabled_image
                                     on_release:
                                         app.root.game_settings_screen.switch_rest(self.name)
                                         app.root.set_player_sign(self.name)
@@ -201,6 +212,11 @@
                                 SwitchButton:
                                     id: player_8
                                     name: "player_8"
+                                    source: "graphics/icons/cat_icon_normal.png"
+                                    normal_image: "graphics/icons/cat_icon_normal.png"
+                                    switch_image: "graphics/icons/cat_icon_switch.png"
+                                    disabled_image: "graphics/icons/cat_icon_disabled.png"
+                                    on_press: self.source = self.disabled_image
                                     on_release:
                                         app.root.game_settings_screen.switch_rest(self.name)
                                         app.root.set_player_sign(self.name)
@@ -209,6 +225,11 @@
                                 SwitchButton:
                                     id: player_9
                                     name: "player_9"
+                                    source: "graphics/icons/pigeon_icon_normal.png"
+                                    normal_image: "graphics/icons/pigeon_icon_normal.png"
+                                    switch_image: "graphics/icons/pigeon_icon_switch.png"
+                                    disabled_image: "graphics/icons/pigeon_icon_disabled.png"
+                                    on_press: self.source = self.disabled_image
                                     on_release:
                                         app.root.game_settings_screen.switch_rest(self.name)
                                         app.root.set_player_sign(self.name)
@@ -248,6 +269,7 @@
                                     normal_image: "graphics/icons/circle_icon_normal.png"
                                     switch_image: "graphics/icons/circle_icon_switch.png"
                                     disabled_image: "graphics/icons/circle_icon_disabled.png"
+                                    on_press: self.source = self.disabled_image
                                     on_release:
                                         app.root.game_settings_screen.switch_rest(self.name)
                                         app.root.set_player_sign(self.name)
@@ -260,6 +282,7 @@
                                     normal_image: "graphics/icons/cross_icon_normal.png"
                                     switch_image: "graphics/icons/cross_icon_switch.png"
                                     disabled_image: "graphics/icons/cross_icon_disabled.png"
+                                    on_press: self.source = self.disabled_image
                                     on_release:
                                         app.root.game_settings_screen.switch_rest(self.name)
                                         app.root.set_player_sign(self.name)
@@ -272,6 +295,7 @@
                                     normal_image: "graphics/icons/triangle_icon_normal.png"
                                     switch_image: "graphics/icons/triangle_icon_switch.png"
                                     disabled_image: "graphics/icons/triangle_icon_disabled.png"
+                                    on_press: self.source = self.disabled_image
                                     on_release:
                                         app.root.game_settings_screen.switch_rest(self.name)
                                         app.root.set_player_sign(self.name)
@@ -287,6 +311,7 @@
                                     normal_image: "graphics/icons/beer_icon_normal.png"
                                     switch_image: "graphics/icons/beer_icon_switch.png"
                                     disabled_image: "graphics/icons/beer_icon_disabled.png"
+                                    on_press: self.source = self.disabled_image
                                     on_release:
                                         app.root.game_settings_screen.switch_rest(self.name)
                                         app.root.set_player_sign(self.name)
@@ -299,6 +324,7 @@
                                     normal_image: "graphics/icons/vodka_icon_normal.png"
                                     switch_image: "graphics/icons/vodka_icon_switch.png"
                                     disabled_image: "graphics/icons/vodka_icon_disabled.png"
+                                    on_press: self.source = self.disabled_image
                                     on_release:
                                         app.root.game_settings_screen.switch_rest(self.name)
                                         app.root.set_player_sign(self.name)
@@ -311,6 +337,7 @@
                                     normal_image: "graphics/icons/wine_icon_normal.png"
                                     switch_image: "graphics/icons/wine_icon_switch.png"
                                     disabled_image: "graphics/icons/wine_icon_disabled.png"
+                                    on_press: self.source = self.disabled_image
                                     on_release:
                                         app.root.game_settings_screen.switch_rest(self.name)
                                         app.root.set_player_sign(self.name)
@@ -322,6 +349,11 @@
                                 SwitchButton:
                                     id: enemy_7
                                     name: "enemy_7"
+                                    source: "graphics/icons/dog_icon_normal.png"
+                                    normal_image: "graphics/icons/dog_icon_normal.png"
+                                    switch_image: "graphics/icons/dog_icon_switch.png"
+                                    disabled_image: "graphics/icons/dog_icon_disabled.png"
+                                    on_press: self.source = self.disabled_image
                                     on_release:
                                         app.root.game_settings_screen.switch_rest(self.name)
                                         app.root.set_player_sign(self.name)
@@ -330,6 +362,11 @@
                                 SwitchButton:
                                     id: enemy_8
                                     name: "enemy_8"
+                                    source: "graphics/icons/cat_icon_normal.png"
+                                    normal_image: "graphics/icons/cat_icon_normal.png"
+                                    switch_image: "graphics/icons/cat_icon_switch.png"
+                                    disabled_image: "graphics/icons/cat_icon_disabled.png"
+                                    on_press: self.source = self.disabled_image
                                     on_release:
                                         app.root.game_settings_screen.switch_rest(self.name)
                                         app.root.set_player_sign(self.name)
@@ -338,6 +375,11 @@
                                 SwitchButton:
                                     id: enemy_9
                                     name: "enemy_9"
+                                    source: "graphics/icons/pigeon_icon_normal.png"
+                                    normal_image: "graphics/icons/pigeon_icon_normal.png"
+                                    switch_image: "graphics/icons/pigeon_icon_switch.png"
+                                    disabled_image: "graphics/icons/pigeon_icon_disabled.png"
+                                    on_press: self.source = self.disabled_image
                                     on_release:
                                         app.root.game_settings_screen.switch_rest(self.name)
                                         app.root.set_player_sign(self.name)
