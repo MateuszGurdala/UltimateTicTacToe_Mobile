@@ -6,22 +6,17 @@ from menu_window import MenuWindow
 from game_settings_window import GameSettingsWindow
 from app_settings_window import AppSettingsWindow
 from game_template import Game, Segment
+from popups import WinnerPopup
 
 Builder.load_file("main_app.kv")
 
-# TODO: MAKE THE GAME PLAYABLE
-"""
-Make the game winnable
-"""
 
-
+# TODO: Add winner popup
 # TODO: Add AI levels (random, depth=0, depth=3)
 # TODO: create own spinner
 # TODO: Finish game log
-# TODO: Return to the main menu alert popup
 # TODO: Icon placing animations
 # TODO: Make Instant Place button do something
-# TODO: Upgrade Graphics
 # TODO: Add clock to create_reference functions inside classes
 # TODO: Change function that calls enemy move (enemy_place_number might not be yet evaluated when it is called)
 
@@ -97,9 +92,9 @@ class GameManager(ScreenManager):
         player_data = self.game_settings_screen.display_player, self.game_settings_screen.player_icons
         enemy_data = self.game_settings_screen.display_enemy, self.game_settings_screen.enemy_icons
         display, icons = player_data if sign_name[0] == "p" else enemy_data
-
+        displays = self.game_settings_screen.displays
         # Changing icon on display
-        display.source = icons[sign_name].normal_image
+        display.source = displays[sign_name]
 
         # Changing gaming icon
         if sign_name[0] == "p":
@@ -120,6 +115,8 @@ class GameManager(ScreenManager):
 
     def next_turn(self, place_number):
         self.update_game(place_number, enemy=False)
+        if self.game_engine.game_map.winner:
+            return
         self.game_map.disable_segments()
 
         if self.game_engine.game_map.segments[place_number].winner:
@@ -143,6 +140,8 @@ class GameManager(ScreenManager):
 
     def enemy_turn(self, enemy_place_number):
         self.update_game(enemy_place_number, enemy=True)
+        if self.game_engine.game_map.winner:
+            return
         self.game_map.segments[self.game_engine.current_segment].places[enemy_place_number].release()
 
         if self.game_engine.game_map.segments[enemy_place_number].winner:
@@ -162,10 +161,10 @@ class GameManager(ScreenManager):
         self.game_map.segments[self.game_engine.current_segment].places[place_number].release()
         self.game_screen.remove_highlight()
         self.game_engine.game_map.update()
-        if self.game_engine.game_map.update():
+        self.game_screen.update_segment_highlight(self.game_engine.game_map)
+        if self.game_engine.game_map.winner:
             self.game_won()
             return
-        self.game_screen.update_segment_highlight(self.game_engine.game_map)
         self.game_map.segments[self.game_engine.current_segment].places[place_number].if_disabled = True
 
         self.game_engine.game_map.print()
@@ -194,5 +193,10 @@ class GameManager(ScreenManager):
         Clock.schedule_once(lambda a: self.game_screen.highlight_segment(self.game_engine.current_segment), 2)
 
     def game_won(self):
+        print("Game has been finished.")
         self.game_map.disable_segments()
         self.game_screen.remove_highlight()
+        popup = WinnerPopup()
+        winner = self.game_engine.game_map.winner
+        popup.winner = self.player_sign if winner == "X" else self.enemy_sign
+        popup.open()
