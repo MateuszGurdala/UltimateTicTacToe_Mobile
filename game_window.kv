@@ -48,15 +48,12 @@
 
             # Extend Game Log
             AnchorLayout:
-                SwitchButton:
-                    size_hint: 1, 1
-                    normal: 1, 1
-                    press: 0.9, 0.9
+                Image:
+                    id: current_player_display
+                    size_hint: 0.5, 1
                     source: "graphics/game_screen/extend_normal.png"
-                    normal_image: "graphics/game_screen/extend_normal.png"
-                    disabled_image: "graphics/game_screen/extend_disabled.png"
-                    switch_image: "graphics/game_screen/extend_switched.png"
-                    on_press: self.source = self.disabled_image
+                    keep_ratio: False
+                    allow_stretch: True
 
             # Instant Place
             AnchorLayout:
