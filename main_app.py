@@ -11,14 +11,14 @@ from popups import WinnerPopup
 Builder.load_file("main_app.kv")
 
 
-# TODO: Add winner popup
+# TODO: Add a draw who starts
 # TODO: Add AI levels (random, depth=0, depth=3)
 # TODO: create own spinner
 # TODO: Finish game log
-# TODO: Icon placing animations
-# TODO: Make Instant Place button do something
+# TODO: Icon placement animations
+# TODO: Make Instant Place button finally do something
 # TODO: Add clock to create_reference functions inside classes
-# TODO: Change function that calls enemy move (enemy_place_number might not be yet evaluated when it is called)
+# TODO: Change function that calls enemy move (enemy_place_number might not yet be evaluated when it is called)
 
 class MenuScreen(Screen):
     def __init__(self, *args, **kwargs):
@@ -112,12 +112,14 @@ class GameManager(ScreenManager):
         self.game_screen.remove_segment_winner_highlight()
         self.game_screen.reset_game_map()
         self.game_screen.remove_choose_segment_buttons()
+        self.game_screen.current_player_display.source = "graphics/game_screen/extend_normal.png"
 
     def next_turn(self, place_number):
         self.update_game(place_number, enemy=False)
         if self.game_engine.game_map.winner:
             return
         self.game_map.disable_segments()
+        self.game_screen.current_player_display.source = self.game_settings_screen.display_enemy.source
 
         if self.game_engine.game_map.segments[place_number].winner:
             print("Segment finished.")
@@ -143,6 +145,7 @@ class GameManager(ScreenManager):
         if self.game_engine.game_map.winner:
             return
         self.game_map.segments[self.game_engine.current_segment].places[enemy_place_number].release()
+        self.game_screen.current_player_display.source = self.game_settings_screen.display_player.source
 
         if self.game_engine.game_map.segments[enemy_place_number].winner:
             print("Segment finished.")
@@ -196,7 +199,6 @@ class GameManager(ScreenManager):
         print("Game has been finished.")
         self.game_map.disable_segments()
         self.game_screen.remove_highlight()
-        popup = WinnerPopup()
-        winner = self.game_engine.game_map.winner
-        popup.winner = self.player_sign if winner == "X" else self.enemy_sign
+        popup = WinnerPopup(self)
+        popup.winner = self.game_engine.game_map.winner
         popup.open()
