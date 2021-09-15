@@ -1,7 +1,7 @@
 from kivy.config import Config
 
 Config.set('graphics', 'position', 'custom')
-Config.set('graphics', 'left', 700)
+Config.set('graphics', 'left', 800)
 Config.set('graphics', 'top', 50)
 Config.set('graphics', 'resizable', 0)
 Config.set('graphics', 'borderless', 'true')
@@ -10,7 +10,7 @@ from imports import *
 from main_app import GameManager
 
 val = 50
-Window.size = 10 * val, 16 * val
+Window.size = 9 * val, 19.5 * val
 
 
 class MainApp(App):
