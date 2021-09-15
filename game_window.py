@@ -10,18 +10,19 @@ Builder.load_file("game_window.kv")
 class GameWindow(Widget):
     def __init__(self, *args, **kwargs):
         super(GameWindow, self).__init__(*args, **kwargs)
+        self.root = None
 
         # References
         self.game_map = None
         self.game_map_layout = None
-        self.game_log_layout = None
+        self.game_log = None
         self.current_player_display = None
 
     def create_references(self):
         # Creating Game Map reference
         self.game_map = self.ids["game_map"].__self__
-        self.game_log_layout = self.ids["game_log_layout"].__self__
         self.game_map_layout = self.ids["game_map_layout"].__self__
+        self.game_log = self.ids["game_log"].__self__
         self.current_player_display = self.ids["current_player_display"].__self__
 
         # Creating references to all segments and places
@@ -40,8 +41,10 @@ class GameWindow(Widget):
         Clock.schedule_once(lambda a: self.game_map.reset(), 1)
 
     def discover_segments(self):
+        self.root.add_to_log("Creating game map")
         Clock.schedule_once(lambda a: self.game_map.discover_segments(), 1)
         Clock.schedule_once(lambda a: self.set_display(), 3)
+        Clock.schedule_once(lambda a: self.root.add_to_log("You can choose starting segment"), 3)
 
     def hide_segments(self):
         Clock.schedule_once(lambda a: self.game_map.hide_segments(), 1)
@@ -61,10 +64,10 @@ class GameWindow(Widget):
             self.game_map.segments[i].highlight = None
             self.game_map.segments[i].canvas.before.clear()
 
-    def create_choose_segment_buttons(self):
+    def create_choose_segment_buttons(self, if_disabled=False):
         for i in self.game_map.segments:
             if not self.game_map.segments[i].highlight:
-                self.game_map.create_choose_button(i)
+                self.game_map.create_choose_button(i, if_disabled)
 
     def remove_choose_segment_buttons(self):
         for i in self.game_map.segments:

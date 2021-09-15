@@ -34,9 +34,22 @@
                     size: self.size
                     pos: self.pos
                     source: "graphics/game_screen/game_log_background.png"
-            id: game_log_layout
             size_hint: 6.7/10, 3.8/16
             pos_hint: {"x": 0.01, "y": 0.0055}
+            ScrollView:
+                size_hint: 0.95, 0.9
+                bar_color: 0/255, 38/255, 241/255, 1
+                Label:
+                    id: game_log
+                    size_hint_y: None
+                    text_size: self.width, None
+                    height: self.texture_size[1]
+                    font_size: 18
+                    color: 1, 1, 1, 1
+                    outline_color: 0/255, 38/255, 241/255, 1
+                    outline_width: 2
+                    bold: True
+                    text: ""
 
         # Utility Buttons
         BoxLayout:
@@ -66,6 +79,7 @@
                     disabled_image: "graphics/game_screen/instant_press_disabled.png"
                     switch_image: "graphics/game_screen/instant_press_switched.png"
                     on_press: self.source = self.disabled_image
+                    on_release: app.root.instant_place = not app.root.instant_place
 
             # Return to Main Menu
             AnchorLayout:
