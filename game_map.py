@@ -35,13 +35,11 @@ class GameMap(FloatLayout):
         for i in self.segments:
             for j in self.segments[i].places:
                 self.segments[i].places[j].disabled = True
-                Window.unbind(mouse_pos=self.segments[i].places[j].on_mouse_pos)
 
     def activate_segment(self, segment_number):
         for i in self.segments[segment_number].places:
             if not self.segments[segment_number].places[i].if_disabled:
                 self.segments[segment_number].places[i].disabled = False
-                Window.bind(mouse_pos=self.segments[segment_number].places[i].on_mouse_pos)
 
     def create_choose_button(self, segment_number, if_disabled=False):
         segment = self.segments[segment_number]
@@ -51,6 +49,7 @@ class GameMap(FloatLayout):
                         size=segment.size,
                         background_normal="graphics/game_map/choose_segment_button.png",
                         background_down="graphics/game_map/choose_segment_button.png",
+                        background_disabled_normal="graphics/game_map/choose_segment_button.png",
                         on_release=lambda a: root.set_current_segment(segment_number),
                         disabled=if_disabled)
         self.segments[segment_number].choose_button = button
@@ -61,3 +60,11 @@ class GameMap(FloatLayout):
         if segment.choose_button:
             segment.remove_widget(segment.choose_button)
             segment.choose_button = None
+
+    def un_click_rest_buttons(self, segment_number, place_number):
+        for i in self.segments[segment_number].places:
+            if i == place_number:
+                pass
+            elif self.segments[segment_number].places[i].source == "graphics/game_map/place_highlight.png":
+                self.segments[segment_number].places[i].clicked = False
+                self.segments[segment_number].places[i].source = "graphics/game_map/place_normal.png"

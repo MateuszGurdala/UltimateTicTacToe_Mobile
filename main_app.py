@@ -1,5 +1,4 @@
 import copy
-
 from imports import *
 from game_window import GameWindow
 from menu_window import MenuWindow
@@ -14,9 +13,7 @@ Builder.load_file("main_app.kv")
 # TODO: Add a draw who starts
 # TODO: Add AI levels (random, depth=0, depth=3)
 # TODO: create own spinner
-# TODO: Finish game log
 # TODO: Icon placement animations
-# TODO: Make Instant Place button finally do something
 # TODO: Add clock to create_reference functions inside classes
 # TODO: Change function that calls enemy move (enemy_place_number might not yet be evaluated when it is called)
 
@@ -61,12 +58,14 @@ class GameManager(ScreenManager):
         self.menu_screen = self.ids["menu_screen"].__self__
         self.game_screen = self.ids["game_screen"].__self__
         self.game_map = None
+        self.game_log = None
         self.game_settings_screen = self.ids["game_settings_screen"].__self__
         self.app_settings_screen = self.ids["app_settings_screen"].__self__
 
         # Game info
         self.player_sign = None
         self.enemy_sign = None
+        self.instant_place = False
 
         # Game engine
         self.game_engine = Game()
@@ -82,7 +81,9 @@ class GameManager(ScreenManager):
 
         self.game_settings_screen = self.game_settings_screen.game_settings_window
         self.game_screen = self.game_screen.game_window
+        self.game_screen.root = self
         self.game_map = self.game_screen.ids["game_map"].__self__
+        self.game_log = self.game_screen.ids["game_log"].__self__
 
         # Game info
         self.player_sign = self.game_settings_screen.icons["player_1"]
@@ -102,6 +103,9 @@ class GameManager(ScreenManager):
         elif sign_name[0] == "e":
             self.enemy_sign = self.game_settings_screen.icons[sign_name]
 
+    def add_to_log(self, message):
+        self.game_log.text += message + "\n"
+
     def restart(self):
         # Erasing game engine data
         self.game_engine.game_map.segments = {str(i): Segment(str(i)) for i in range(1, 10)}
@@ -113,8 +117,20 @@ class GameManager(ScreenManager):
         self.game_screen.reset_game_map()
         self.game_screen.remove_choose_segment_buttons()
         self.game_screen.current_player_display.source = "graphics/game_screen/extend_normal.png"
+        self.game_log.text = ""
 
     def next_turn(self, place_number):
+        if not self.instant_place:
+            self.game_map.un_click_rest_buttons(self.game_engine.current_segment, place_number)
+            place = self.game_map.segments[self.game_engine.current_segment].places[place_number]
+            if place.clicked:
+                pass
+            else:
+                place.source = "graphics/game_map/place_highlight.png"
+                place.clicked = True
+                return
+
+        self.add_to_log(f"Put sign in segment {self.game_engine.current_segment} in place {place_number}")
         self.update_game(place_number, enemy=False)
         if self.game_engine.game_map.winner:
             return
@@ -123,6 +139,7 @@ class GameManager(ScreenManager):
 
         if self.game_engine.game_map.segments[place_number].winner:
             print("Segment finished.")
+            self.add_to_log("Moved enemy to a finished segment")
             self.enemy_choose_segment()
 
             enemy_place_number = self.game_engine.ai_pick_place_number()
@@ -141,6 +158,7 @@ class GameManager(ScreenManager):
         Clock.schedule_once(lambda a: self.enemy_turn(enemy_place_number), delay + 0.5)
 
     def enemy_turn(self, enemy_place_number):
+        self.add_to_log(f"Enemy put sign in segment {self.game_engine.current_segment} in place {enemy_place_number}")
         self.update_game(enemy_place_number, enemy=True)
         if self.game_engine.game_map.winner:
             return
@@ -149,6 +167,7 @@ class GameManager(ScreenManager):
 
         if self.game_engine.game_map.segments[enemy_place_number].winner:
             print("Segment finished.")
+            self.add_to_log("Enemy moved you to a finished segment")
             self.player_choose_segment()
         else:
             self.game_engine.current_segment = enemy_place_number
@@ -179,15 +198,19 @@ class GameManager(ScreenManager):
         self.game_screen.highlight_segment(segment_number)
         self.game_map.activate_segment(segment_number)
         print(f"Player chose segment: {segment_number}")
+        self.add_to_log(f"Chose segment {segment_number}")
 
     def player_choose_segment(self):
+        self.add_to_log("You can choose starting segment")
         self.game_map.disable_segments()
         self.game_screen.remove_highlight()
         self.game_screen.create_choose_segment_buttons()
 
     def enemy_choose_segment(self):
+        self.add_to_log("Enemy is choosing starting segment")
         self.game_engine.current_segment = self.game_engine.ai.choose_segment(self.game_engine.game_map)[0]
         print(f"Enemy chose segment: {self.game_engine.current_segment}")
+        self.add_to_log(f"Enemy chose segment {self.game_engine.current_segment}")
         self.game_map.disable_segments()
         self.game_screen.remove_highlight()
         self.game_screen.create_choose_segment_buttons(if_disabled=True)
@@ -197,6 +220,9 @@ class GameManager(ScreenManager):
 
     def game_won(self):
         print("Game has been finished.")
+        self.add_to_log("Game has been finished")
+        winner = "Player" if self.game_engine.game_map.winner == "X" else "Enemy"
+        self.add_to_log(f"{winner} has won the game!")
         self.game_map.disable_segments()
         self.game_screen.remove_highlight()
         popup = WinnerPopup(self)
