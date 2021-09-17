@@ -15,7 +15,6 @@ class Game:
         self.current_segment = None
         self.turn_number = 0
 
-    # TODO: MODIFY
     def choose_segment(self, player=False, ai=False):
         if player:
             pass
@@ -26,7 +25,6 @@ class Game:
         self.game_map.segments[segment_number].places[place_number] = sign
         self.game_map.update()
 
-    # TODO: MODIFY
     def player_turn(self):
         self.game_map.print()
 
@@ -40,12 +38,21 @@ class Game:
         self.game_map.update()
         self.turn_number += 1
 
-    def ai_pick_place_number(self):
+    def ai_pick_place_number(self, game_mode):
         segment, game_map = self.game_map.segments[self.current_segment], self.game_map
-        if self.turn_number < 15:
+        if game_mode == "ai_hard":
+            if self.turn_number < 15:
+                self.turn_number += 1
+                return self.ai.pick_best_move(segment, game_map)[0]
+            else:
+                return self.ai.pick_best_move_algorithm(game_map, segment)[0]
+        elif game_mode == "ai_normal":
             return self.ai.pick_best_move(segment, game_map)[0]
-        else:
-            return self.ai.pick_best_move_algorithm(game_map, segment)[0]
+        elif game_mode == "ai_easy":
+            val = random.randint(1, 9)
+            while self.game_map.segments[self.current_segment].places[str(val)]:
+                val = random.randint(1, 9)
+            return str(val)
 
     def ai_turn(self):
         self.game_map.print()

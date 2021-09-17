@@ -11,7 +11,7 @@
     disabled_image: "graphics/icons/icon_disabled.png"
 
 <GameSettingsWindow>
-    BoxLayout:
+    FloatLayout:
         canvas:
             Rectangle:
                 size: self.size
@@ -19,51 +19,10 @@
                 source: "graphics/game_settings_screen/background_image.png"
         pos: self.parent.pos
         size: self.parent.size
-        orientation: "vertical"
-        spacing: 0
-############################################ CHOOSING GAME MODE ########################################################
-        FloatLayout:
-            size_hint: 1, 8/16
-
-            # Return Button
-            AnchorLayout:
-                size_hint: 0.2, 0.6
-                pos_hint: {"x": 0.02, "y": 0.05}
-                HoverButton:
-                    source: "graphics/game_settings_screen/return_normal.png"
-                    normal_image: "graphics/game_settings_screen/return_normal.png"
-                    hover_image: self.normal_image
-                    pressed_image: "graphics/game_settings_screen/return_pressed.png"
-                    size_hint: 0.8, 0.24
-                    normal: 0.8, 0.24
-                    hover: 0.8, 0.24
-                    press: 0.7, 0.21
-                    on_press: self.click()
-                    on_release:
-                        self.release()
-                        app.root.current = "menu_screen"
-                        app.root.transition.direction = "right"
-
-            # Player
-            AnchorLayout:
-                size_hint: 0.4, 0.25
-                pos_hint: {"x": 0.55, "y": 0.4}
-                Image:
-                    source: "graphics/game_settings_screen/game_mode_background.png"
-                    keep_ratio: False
-                    allow_stretch: True
-
-            # Enemy
-            AnchorLayout:
-                size_hint: 0.4, 0.25
-                pos_hint: {"x": 0.55, "y": 0.1}
-                Image:
-                    source: "graphics/game_settings_screen/game_mode_background.png"
-                    keep_ratio: False
-                    allow_stretch: True
 ############################################ CHOOSING ICONS ############################################################
         BoxLayout:
             size_hint: 1, 8/16
+            pos_hint: {"x": 0, "y": 0}
             orientation: "horizontal"
             spacing: 0
 
@@ -364,4 +323,43 @@
                                     on_release:
                                         app.root.game_settings_screen.switch_rest(self.name)
                                         app.root.set_player_sign(self.name)
+
+############################################ CHOOSING GAME MODE ########################################################
+        FloatLayout:
+            size_hint: 1, 8/16
+            pos_hint: {"x": 0, "y": 0.5}
+
+            # Return Button
+            AnchorLayout:
+                size_hint: 0.2, 0.6
+                pos_hint: {"x": 0.02, "y": 0.05}
+                HoverButton:
+                    source: "graphics/game_settings_screen/return_normal.png"
+                    normal_image: "graphics/game_settings_screen/return_normal.png"
+                    hover_image: self.normal_image
+                    pressed_image: "graphics/game_settings_screen/return_pressed.png"
+                    size_hint: 0.8, 0.24
+                    normal: 0.8, 0.24
+                    hover: 0.8, 0.24
+                    press: 0.7, 0.21
+                    on_press: self.click()
+                    on_release:
+                        self.release()
+                        app.root.current = "menu_screen"
+                        app.root.transition.direction = "right"
+
+            # Player
+            AnchorLayout:
+                size_hint: 0.4, 0.25
+                pos_hint: {"x": 0.55, "y": 0.4}
+                Image:
+                    source: "graphics/game_mode_spinner/base0_pressed.png"
+                    keep_ratio: False
+                    allow_stretch: True
+
+            # Enemy
+            AnchorLayout:
+                size_hint: 0.4, 0.25
+                pos_hint: {"x": 0.55, "y": 0.1}
+                CustomSpinner
 

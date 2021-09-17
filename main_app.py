@@ -10,9 +10,8 @@ from popups import WinnerPopup
 Builder.load_file("main_app.kv")
 
 
+# TODO: Optimise game log animations
 # TODO: Add a draw who starts
-# TODO: Add AI levels (random, depth=0, depth=3)
-# TODO: create own spinner
 # TODO: Icon placement animations
 # TODO: Add clock to create_reference functions inside classes
 # TODO: Change function that calls enemy move (enemy_place_number might not yet be evaluated when it is called)
@@ -25,7 +24,6 @@ class MenuScreen(Screen):
 class GameScreen(Screen):
     def __init__(self, *args, **kwargs):
         super(GameScreen, self).__init__(*args, **kwargs)
-
         self.game_window = None
 
     def create_references(self):
@@ -63,9 +61,11 @@ class GameManager(ScreenManager):
         self.app_settings_screen = self.ids["app_settings_screen"].__self__
 
         # Game info
+        self.game_mode = "ai_normal"
         self.player_sign = None
         self.enemy_sign = None
         self.instant_place = False
+        self.enemy_player = False
 
         # Game engine
         self.game_engine = Game()
@@ -103,7 +103,23 @@ class GameManager(ScreenManager):
         elif sign_name[0] == "e":
             self.enemy_sign = self.game_settings_screen.icons[sign_name]
 
+    def change_game_mode(self, game_mode):
+        self.game_mode = game_mode
+
+    def add_letter_to_log(self, letter, delay=None):
+        if delay:
+            Clock.schedule_once(lambda a: self.add_letter_to_log(letter), delay)
+            return
+        self.game_log.text += letter
+
     def add_to_log(self, message):
+        # n = -1
+        # delay = 0.01
+        # for i in message:
+        #     n += 1
+        #     self.add_letter_to_log(message[n], delay)
+        #     delay += 0.01
+        # self.add_letter_to_log("\n", delay)
         self.game_log.text += message + "\n"
 
     def restart(self):
@@ -131,26 +147,48 @@ class GameManager(ScreenManager):
                 return
 
         self.add_to_log(f"Put sign in segment {self.game_engine.current_segment} in place {place_number}")
-        self.update_game(place_number, enemy=False)
+        if self.enemy_player:
+            self.update_game(place_number, enemy=True)
+        else:
+            self.update_game(place_number, enemy=False)
         if self.game_engine.game_map.winner:
             return
         self.game_map.disable_segments()
-        self.game_screen.current_player_display.source = self.game_settings_screen.display_enemy.source
+        if self.enemy_player:
+            self.game_screen.current_player_display.source = self.game_settings_screen.display_player.source
+        else:
+            self.game_screen.current_player_display.source = self.game_settings_screen.display_enemy.source
 
         if self.game_engine.game_map.segments[place_number].winner:
             print("Segment finished.")
             self.add_to_log("Moved enemy to a finished segment")
-            self.enemy_choose_segment()
+            if self.game_mode != "player_controlled":
+                self.enemy_choose_segment()
 
-            enemy_place_number = self.game_engine.ai_pick_place_number()
-            self.enemy_turn_delay(enemy_place_number, 2.5)
+                enemy_place_number = self.game_engine.ai_pick_place_number("ai_easy")
+                self.enemy_turn_delay(enemy_place_number, 2.5)
+            else:
+                self.player_choose_segment()
 
+                if self.enemy_player:
+                    self.enemy_player = False
+                else:
+                    self.enemy_player = True
         else:
             self.game_engine.current_segment = place_number
             self.game_screen.highlight_segment(place_number)
 
-            enemy_place_number = self.game_engine.ai_pick_place_number()
-            self.enemy_turn_delay(enemy_place_number, 1.5)
+            if self.game_mode != "player_controlled":
+                enemy_place_number = self.game_engine.ai_pick_place_number(self.game_mode)
+                self.enemy_turn_delay(enemy_place_number, 1.5)
+            else:
+                self.game_engine.current_segment = place_number
+                self.game_map.activate_segment(place_number)
+                self.game_screen.highlight_segment(place_number)
+                if self.enemy_player:
+                    self.enemy_player = False
+                else:
+                    self.enemy_player = True
 
     def enemy_turn_delay(self, enemy_place_number, delay):
         segment = self.game_map.segments[self.game_engine.current_segment]
@@ -208,7 +246,13 @@ class GameManager(ScreenManager):
 
     def enemy_choose_segment(self):
         self.add_to_log("Enemy is choosing starting segment")
-        self.game_engine.current_segment = self.game_engine.ai.choose_segment(self.game_engine.game_map)[0]
+        if self.game_mode in ["ai_hard", "ai_normal"]:
+            self.game_engine.current_segment = self.game_engine.ai.choose_segment(self.game_engine.game_map)[0]
+        elif self.game_mode == "ai_easy":
+            val = randint(1, 9)
+            while self.game_engine.game_map.segments[str(val)].winner:
+                val = randint(1, 9)
+            self.game_engine.current_segment = str(val)
         print(f"Enemy chose segment: {self.game_engine.current_segment}")
         self.add_to_log(f"Enemy chose segment {self.game_engine.current_segment}")
         self.game_map.disable_segments()

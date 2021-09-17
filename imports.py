@@ -14,6 +14,8 @@ from kivy.uix.image import Image
 from kivy.uix.screenmanager import ScreenManager, Screen, CardTransition
 from kivy.animation import Animation
 from kivy.uix.popup import Popup
+from kivy.uix.spinner import Spinner, SpinnerOption
+from kivy.uix.dropdown import DropDown
 
 from animation import animation
 from random import randint

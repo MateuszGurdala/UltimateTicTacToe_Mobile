@@ -42,6 +42,13 @@ class GameWindow(Widget):
 
     def discover_segments(self):
         self.root.add_to_log("Creating game map")
+        game_modes = {
+            "ai_easy": "Easy",
+            "ai_normal": "Normal",
+            "ai_hard": "Hard",
+            "player_controlled": "Player Controlled",
+        }
+        self.root.add_to_log("Game mode: " + game_modes[self.root.game_mode])
         Clock.schedule_once(lambda a: self.game_map.discover_segments(), 1)
         Clock.schedule_once(lambda a: self.set_display(), 3)
         Clock.schedule_once(lambda a: self.root.add_to_log("You can choose starting segment"), 3)

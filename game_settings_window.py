@@ -1,6 +1,7 @@
 from imports import *
 from hover_button import HoverButton
 from switch_button import SwitchButton
+from custom_spinner import CustomSpinner
 
 Builder.load_file("game_settings_window.kv")
 

@@ -29,5 +29,3 @@ class SwitchButton(ButtonBehavior, Image):
             self.switched = True
         self.size_hint = self.normal
 
-    def pass_function(self):
-        pass
