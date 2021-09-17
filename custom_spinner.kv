@@ -1,0 +1,86 @@
+<CustomSpinner>
+    FloatLayout:
+        size: root.size
+        pos: root.pos
+
+        # AI Hard Option
+        AnchorLayout:
+            pos_hint: {"x": 0, "y": 0.1}
+            size_hint: 1, 0.8
+            id: option_3
+            SwitchButton:
+                text: "option_3"
+                source: "graphics/game_mode_spinner/option3_pressed.png"
+                normal_image: "graphics/game_mode_spinner/option3_pressed.png"
+                switch_image: self.normal_image
+                disabled_image: self.normal_image
+                on_release:
+                    self.parent.parent.parent.roll_options_up()
+                    self.parent.parent.parent.change_game_mode(self)
+                    app.root.change_game_mode("ai_hard")
+
+        # AI Normal Option
+        AnchorLayout:
+            pos_hint: {"x": 0, "y": 0.1}
+            size_hint: 1, 0.8
+            id: option_2
+            SwitchButton:
+                text: "option_2"
+                source: "graphics/game_mode_spinner/option2_pressed.png"
+                normal_image: "graphics/game_mode_spinner/option2_pressed.png"
+                switch_image: self.normal_image
+                disabled_image: self.normal_image
+                on_release:
+                    self.parent.parent.parent.roll_options_up()
+                    self.parent.parent.parent.change_game_mode(self)
+                    app.root.change_game_mode("ai_normal")
+
+    # AI Easy Option
+        AnchorLayout:
+            pos_hint: {"x": 0, "y": 0.1}
+            size_hint: 1, 0.8
+            id: option_1
+            SwitchButton:
+                text: "option_1"
+                source: "graphics/game_mode_spinner/option1_pressed.png"
+                normal_image: "graphics/game_mode_spinner/option1_pressed.png"
+                switch_image: self.normal_image
+                disabled_image: self.normal_image
+                on_release:
+                    self.parent.parent.parent.roll_options_up()
+                    self.parent.parent.parent.change_game_mode(self)
+                    app.root.change_game_mode("ai_easy")
+
+        # Player Controlled Option
+        AnchorLayout:
+            pos_hint: {"x": 0, "y": 0.1}
+            size_hint: 1, 0.8
+            id: option_0
+            SwitchButton:
+                text: "option_0"
+                source: "graphics/game_mode_spinner/option0_pressed.png"
+                normal_image: "graphics/game_mode_spinner/option0_pressed.png"
+                switch_image: self.normal_image
+                disabled_image: self.normal_image
+                on_release:
+                    self.parent.parent.parent.roll_options_up()
+                    self.parent.parent.parent.change_game_mode(self)
+                    app.root.change_game_mode("player_controlled")
+
+        # Base Button
+        AnchorLayout:
+            pos_hint: {"x": 0, "y": 0}
+            size_hint: 1, 1
+            SwitchButton:
+                id: base_button
+                size: self.parent.size
+                normal: 1, 1
+                press: 1, 1
+                source: "graphics/game_mode_spinner/base2_normal.png"
+                normal_image: "graphics/game_mode_spinner/base2_normal.png"
+                switch_image: "graphics/game_mode_spinner/base2_pressed.png"
+                disabled_image: self.normal_image
+                on_press:
+                    self.parent.parent.parent.unfold_options()
+                on_release:
+                    self.switched = False
